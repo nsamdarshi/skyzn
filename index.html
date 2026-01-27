@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skyzen Performance - Global Affiliate Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --accent: #ec4899;
+            --dark: #0f0f23;
+            --darker: #050510;
+            --light: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Ultra Premium Background */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 70%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            animation: bgPulse 20s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .grid-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 40s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Floating Premium Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: floatOrb 25s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #6366f1, transparent);
+            top: -300px;
+            left: -200px;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #a855f7, transparent);
+            bottom: -200px;
+            right: -150px;
+            animation-delay: -12s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #ec4899, transparent);
+            top: 50%;
+            right: 10%;
+            animation-delay: -8s;
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -100px) scale(1.1); }
+            50% { transform: translate(50px, 100px) scale(0.9); }
+            75% { transform: translate(-50px, -50px) scale(1.05); }
+        }
+
+        /* Premium Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(30px);
+            background: rgba(15, 15, 35, 0.7);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav.scrolled {
+            padding: 1rem 6%;
+            background: rgba(15, 15, 35, 0.95);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1.5px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 30%;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, transparent);
+            border-radius: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-links a:hover::before {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .btn-cta {
+            padding: 0.9rem 2.2rem;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-cta:hover::before {
+            left: 100%;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(99, 102, 241, 0.6);
+        }
+
+        /* Ultra Premium Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 10rem 6% 6rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1500px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 1.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            color: #a5b4fc;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .hero-badge::before {
+            content: '✨';
+            font-size: 1.2rem;
+        }
+
+        .hero-text h1 {
+            font-size: 5.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #c4b5fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -3px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            line-height: 1.9;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero-primary {
+            padding: 1.3rem 3rem;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-hero-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-hero-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(99, 102, 241, 0.7);
+        }
+
+        .btn-hero-secondary {
+            padding: 1.3rem 3rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Premium Hero Card */
+        .hero-visual {
+            position: relative;
+            animation: fadeInRight 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s backwards;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-card-3d {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 40px;
+            padding: 4rem;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card-3d::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: rotateGlow 20s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-card-3d:hover {
+            transform: translateY(-15px) rotateY(8deg);
+            box-shadow: 0 50px 120px rgba(99, 102, 241, 0.4);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .stat-box {
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+            letter-spacing: -2px;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Premium Section Styling */
+        section {
+            padding: 8rem 6%;
+            max-width: 1500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 1.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            color: #a5b4fc;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .section-tag::before {
+            content: '●';
+            color: #6366f1;
+            font-size: 1.2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* About Premium Box */
+        .about-premium-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            padding: 4rem;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-premium-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.05) 0%, transparent 50%);
+        }
+
+        .about-premium-box p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 1.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Ultra Premium Services */
+        .services-premium-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .service-premium-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 35px;
+            padding: 3.5rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-premium-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            transition: all 0.8s ease;
+        }
+
+        .service-premium-card:hover::before {
+            top: -50%;
+            left: -50%;
+        }
+
+        .service-premium-card:hover {
+            transform: translateY(-15px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 30px 80px rgba(99, 102, 241, 0.3);
+        }
+
+        .service-icon-premium {
+            width: 85px;
+            height: 85px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .service-premium-card:hover .service-icon-premium {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.6);
+        }
+
+        .service-premium-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            color: var(--light);
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .service-premium-card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.9;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Premium Features Split */
+        .features-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            margin-top: 4rem;
+        }
+
+        .features-image-box {
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .features-image-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3));
+            mix-blend-mode: overlay;
+            z-index: 1;
+        }
+
+        .features-image-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .features-image-box:hover img {
+            transform: scale(1.1);
+        }
+
+        .features-list-premium {
+            list-style: none;
+        }
+
+        .features-list-premium li {
+            padding: 1.8rem 0;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            line-height: 1.9;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .features-list-premium li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 0.9rem;
+        }
+
+        .features-list-premium li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list-premium strong {
+            color: #a5b4fc;
+            font-weight: 700;
+        }
+
+        /* Premium Process */
+        .process-premium-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .process-premium-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 35px;
+            padding: 3.5rem;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-premium-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
+            transition: top 0.6s ease;
+        }
+
+        .process-premium-card:hover::before {
+            top: 0;
+        }
+
+        .process-premium-card:hover {
+            transform: translateY(-15px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 30px 80px rgba(99, 102, 241, 0.3);
+        }
+
+        .process-icon-premium {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            margin: 0 auto 2rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-premium-card:hover .process-icon-premium {
+            transform: scale(1.15) rotate(15deg);
+            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.6);
+        }
+
+        .process-premium-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--light);
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-premium-card p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.9;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Ultra Premium Partners Slider */
+        .partners-premium-slider {
+            overflow: hidden;
+            padding: 4rem 0;
+            position: relative;
+            mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+        }
+
+        .partners-track-premium {
+            display: flex;
+            gap: 4rem;
+            animation: scrollPartners 50s linear infinite;
+        }
+
+        @keyframes scrollPartners {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .partner-logo-premium {
+            min-width: 200px;
+            height: 110px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .partner-logo-premium:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+        }
+
+        .partner-logo-premium img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(1) brightness(2);
+            transition: filter 0.4s ease;
+        }
+
+        .partner-logo-premium:hover img {
+            filter: grayscale(0) brightness(1);
+        }
+
+        /* Ultra Premium Contact */
+        .contact-premium-wrapper {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(168, 85, 247, 0.08) 100%);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 5rem;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 5rem;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+        }
+
+        .contact-info-premium h3 {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--light);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-info-premium ul {
+            list-style: none;
+        }
+
+        .contact-info-premium li {
+            padding: 1.5rem 0;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            line-height: 1.9;
+        }
+
+        .contact-info-premium strong {
+            color: #a5b4fc;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-form-premium {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-row-premium {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .contact-form-premium input,
+        .contact-form-premium textarea {
+            width: 100%;
+            padding: 1.3rem 1.8rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: var(--light);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form-premium input:focus,
+        .contact-form-premium textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .contact-form-premium input::placeholder,
+        .contact-form-premium textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .contact-form-premium textarea {
+            resize: vertical;
+            min-height: 180px;
+        }
+
+        .btn-submit-premium {
+            padding: 1.3rem 3rem;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.5);
+            width: fit-content;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit-premium::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn-submit-premium:hover::before {
+            left: 100%;
+        }
+
+        .btn-submit-premium:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(99, 102, 241, 0.7);
+        }
+
+        /* Premium Footer */
+        footer {
+            padding: 4rem 6%;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            background: rgba(15, 15, 35, 0.5);
+            backdrop-filter: blur(20px);
+        }
+
+        .footer-premium {
+            max-width: 1500px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1rem;
+        }
+
+        /* Premium Scroll to Top */
+        .scroll-top-premium {
+            position: fixed;
+            bottom: 3rem;
+            right: 3rem;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.5);
+            z-index: 999;
+        }
+
+        .scroll-top-premium.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-premium:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 50px rgba(99, 102, 241, 0.7);
+        }
+
+        .scroll-top-premium::before {
+            content: '↑';
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 900;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-content,
+            .features-split,
+            .contact-premium-wrapper {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .hero-text h1 {
+                font-size: 4rem;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 968px) {
+            nav {
+                padding: 1.2rem 4%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 8rem 4% 4rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+                letter-spacing: -1.5px;
+            }
+
+            section {
+                padding: 6rem 4%;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .form-row-premium {
+                grid-template-columns: 1fr;
+            }
+
+            .services-premium-grid,
+            .process-premium-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-hero-primary,
+            .btn-hero-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .contact-premium-wrapper {
+                padding: 3rem;
+                border-radius: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer">
+        <div class="bg-gradient"></div>
+        <div class="grid-overlay"></div>
+    </div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Premium Navbar -->
+    <nav id="navbar">
+        <div class="logo">Skyzen Performance</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#partners">Clients</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="btn-cta" onclick="window.open('https://skyzen10606972.offer18.com/m', '_blank')">
+            Affiliate Register →
+        </button>
+    </nav>
+
+    <!-- Ultra Premium Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="hero-badge">Affiliate Marketing Agency</span>
+                <h1>Join hands with the best <span class="gradient-text">Performance Marketing</span> Partner</h1>
+                <p>Transform your business with cutting-edge affiliate marketing strategies. We connect brands with opportunities across 100+ domestic and international markets.</p>
+                <div class="hero-buttons">
+                    <button class="btn-hero-primary" onclick="location.href='#contact'">Consult Digital Experts</button>
+                    <button class="btn-hero-secondary" onclick="location.href='#about'">Learn More →</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card-3d">
+                    <div class="stat-box">
+                        <span class="stat-value">100+</span>
+                        <span class="stat-label">BRAND PARTNERS</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value">99.9%</span>
+                        <span class="stat-label">CLIENT SATISFACTION</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-value">24/7</span>
+                        <span class="stat-label">EXPERT SUPPORT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header">
+            <span class="section-tag">About Us</span>
+            <h2 class="section-title">Leading Digital Affiliate Network</h2>
+            <p class="section-subtitle">Transforming businesses through innovative performance marketing solutions</p>
+        </div>
+        <div class="about-premium-box">
+            <p>Skyzen Performance is one of the fastest growing digital affiliate marketing company working with more than 100 domestic and International brands. To name a few, Airtel, OLX, Paisabazaar, Policybazaar, Cars24, CarDekho, OLA, Snapdeal, Magicbricks, Times of India group & Tigo Tanzania, Airtel Tanzania, etc.</p>
+            <p>To grow your business, you would want a full-fledged online marketing firm whose services are not only limited to SEO or digital advertising. That's where our role comes in.</p>
+            <p>Besides SEO and advertising services, Skyzen Performance is also great at social media management, affiliate marketing, email marketing, search engine marketing, SMS marketing and Whatsapp Marketing. We use optimum resources to deliver the best results. This way, we ensure that the goal of your business or brand is achieved on time. Our team focuses on a relevant, targeted, and result-oriented communication strategy for your business across all mediums.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="section-header">
+            <span class="section-tag">Our Services</span>
+            <h2 class="section-title">Innovative Digital Solutions</h2>
+            <p class="section-subtitle">Skyzen Performance provides 360 degree digital marketing solutions for various corporate entities both at national and international level</p>
+        </div>
+        <div class="services-premium-grid">
+            <div class="service-premium-card">
+                <div class="service-icon-premium">📧</div>
+                <h3>Email Marketing</h3>
+                <p>Trust our experience, proven track record and unmatched proficiency. Focus on innovative approach, subject line optimization and maximum engagement.</p>
+            </div>
+            <div class="service-premium-card">
+                <div class="service-icon-premium">📱</div>
+                <h3>Mobile Advertising</h3>
+                <p>The Mobile Advertising ads we choose reach maximum number of smartphone users across the globe with precision targeting.</p>
+            </div>
+            <div class="service-premium-card">
+                <div class="service-icon-premium">🎯</div>
+                <h3>Display Advertising</h3>
+                <p>Since informing customers about products is our top priority, we choose Display Ads that convert and engage.</p>
+            </div>
+            <div class="service-premium-card">
+                <div class="service-icon-premium">💬</div>
+                <h3>Bulk SMS</h3>
+                <p>Sending bulk messages to any set audience requires domain experts who understand the market dynamics perfectly.</p>
+            </div>
+            <div class="service-premium-card">
+                <div class="service-icon-premium">🔗</div>
+                <h3>Lead Generation</h3>
+                <p>In marketing, lead generation is the initiation of consumer interest or enquiry into products or services of a business.</p>
+            </div>
+            <div class="service-premium-card">
+                <div class="service-icon-premium">👥</div>
+                <h3>Affiliate Marketing</h3>
+                <p>Our affiliate marketing services are closely aligned with your business objectives to reach the right set of audiences.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+        <div class="features-split">
+            <div class="features-image-box">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Digital Marketing" />
+            </div>
+            <div>
+                <span class="section-tag">Our Tools</span>
+                <h2 class="section-title" style="font-size: 2.8rem; text-align: left; margin-bottom: 2.5rem;">Provide Awesome Service With Our Tools</h2>
+                <ul class="features-list-premium">
+                    <li>The hub of best Email Marketing Solutions for building trust, customer engagement and increasing sales.</li>
+                    <li><strong>App & Web Development</strong> foremost application building, focus on unique ideas and modern technology.</li>
+                    <li>Avail our <strong>Social Media Marketing</strong> solutions to persuade users. A cost effective way to increase brand loyalty.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section>
+        <div class="section-header">
+            <span class="section-tag">Our Process</span>
+            <h2 class="section-title">Campaign Strategy Process</h2>
+            <p class="section-subtitle">Our proven methodology to drive exceptional results</p>
+        </div>
+        <div class="process-premium-grid">
+            <div class="process-premium-card">
+                <div class="process-icon-premium">📚</div>
+                <h3>Campaign Requirements</h3>
+                <p>We understand the client business and campaign strategy, discussing everything to grow the business with market analysis.</p>
+            </div>
+            <div class="process-premium-card">
+                <div class="process-icon-premium">📊</div>
+                <h3>Campaign Planning</h3>
+                <p>We create a to-do list with our digital experts and valuable clients, analyzing all KPI metrics for success.</p>
+            </div>
+            <div class="process-premium-card">
+                <div class="process-icon-premium">🧭</div>
+                <h3>Campaign Goal-Map</h3>
+                <p>We implement the plan and strategies step by step for work efficiency to achieve KPI and deliver profitable business.</p>
+            </div>
+            <div class="process-premium-card">
+                <div class="process-icon-premium">💬</div>
+                <h3>Campaign Live Process</h3>
+                <p>Start effective execution from day one to ultimate results and best growth for your business.</p>
+            </div>
+            <div class="process-premium-card">
+                <div class="process-icon-premium">🎯</div>
+                <h3>Review Performance</h3>
+                <p>We always compare our statistics with clients, reviewing current results against standards for better outcomes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section>
+        <div class="features-split" style="flex-direction: row-reverse;">
+            <div class="features-image-box">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="Team Collaboration" />
+            </div>
+            <div>
+                <span class="section-tag">Why Us</span>
+                <h2 class="section-title" style="font-size: 2.8rem; text-align: left; margin-bottom: 2.5rem;">Why Choose Skyzen Performance?</h2>
+                <ul class="features-list-premium">
+                    <li><strong>Your Business is Our Priority:</strong> We translate your dreams, fantasies and desires into realities.</li>
+                    <li><strong>We See Through Your Eye:</strong> Our experts understand your business and work just the way you want.</li>
+                    <li><strong>Generating Higher ROI:</strong> We invest our experience, enthusiasm and dedication in your campaigns to generate higher ROI.</li>
+                    <li><strong>Strong Business Relationship:</strong> We believe in real conversations that create collaboration, innovation and understanding.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners">
+        <div class="section-header">
+            <span class="section-tag">Our Clients</span>
+            <h2 class="section-title">Trusted by Global Brands</h2>
+            <p class="section-subtitle">Partnering with industry leaders worldwide</p>
+        </div>
+        <div class="partners-premium-slider">
+            <div class="partners-track-premium">
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/21_amex.webp" alt="Amex" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/23_iqos.webp" alt="IQOS" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/24_lenovo.webp" alt="Lenovo" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/25_bbva.webp" alt="BBVA" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/26_carat.webp" alt="Carat" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/27_omoda.webp" alt="Omoda" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/31_hyundai.webp" alt="Hyundai" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/22_adidas.webp" alt="Adidas" /></div>
+                <!-- Duplicate for seamless infinite scroll -->
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/21_amex.webp" alt="Amex" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/23_iqos.webp" alt="IQOS" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/24_lenovo.webp" alt="Lenovo" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/25_bbva.webp" alt="BBVA" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/26_carat.webp" alt="Carat" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/27_omoda.webp" alt="Omoda" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/31_hyundai.webp" alt="Hyundai" /></div>
+                <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/22_adidas.webp" alt="Adidas" /></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header">
+            <span class="section-tag">Get in Touch</span>
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-subtitle">Let's discuss how we can help grow your business</p>
+        </div>
+        <div class="contact-premium-wrapper">
+            <div class="contact-info-premium">
+                <h3>Reach Out</h3>
+                <ul>
+                    <li>
+                        <strong>Address</strong>
+                        27 Gloucester St, Pimlico London, SW1V 2DB, United Kingdom
+                    </li>
+                    <li>
+                        <strong>Email</strong>
+                        contact@skyzenperformance.com
+                    </li>
+    
+                    <li>
+                        <strong>Work Hours</strong>
+                        Mon - Sat: 9:00 - 18:00
+                    </li>
+                </ul>
+            </div>
+            <form class="contact-form-premium" onsubmit="handleSubmit(event)">
+                <div class="form-row-premium">
+                    <input type="text" placeholder="Your Name*" required />
+                    <input type="email" placeholder="Email Address*" required />
+                </div>
+                <input type="text" placeholder="Subject*" required />
+                <textarea placeholder="Tell us about your project..." required></textarea>
+                <button type="submit" class="btn-submit-premium">Send Message →</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Premium Footer -->
+    <footer>
+        <div class="footer-premium">
+            <p>Copyright © 2026 Skyzen Performance. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Premium Scroll to Top -->
+    <div class="scroll-top-premium" id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"></div>
+
+    <script>
+        // Enhanced navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const scrollTop = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+                scrollTop.classList.add('visible');
+            } else {
+                navbar.classList.remove('scrolled');
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('✨ Thank you for your message! We will get back to you soon.');
+            e.target.reset();
+        }
+
+        // Premium intersection observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all premium cards
+        document.querySelectorAll('.service-premium-card, .process-premium-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Parallax effect for orbs
+        window.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 20;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
