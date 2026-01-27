@@ -136,26 +136,25 @@
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1.5px;
             position: relative;
             cursor: pointer;
         }
 
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 30%;
-            height: 3px;
-            background: linear-gradient(90deg, #6366f1, transparent);
-            border-radius: 10px;
+        .logo-image {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
+        }
+
+        .logo-image:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 5px 15px rgba(99, 102, 241, 0.5));
+        }
+
+        nav.scrolled .logo-image {
+            height: 40px;
         }
 
         .nav-links {
@@ -236,7 +235,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 10rem 6% 6rem;
+            padding: 10rem 6% 4rem;
             position: relative;
         }
 
@@ -452,7 +451,7 @@
 
         /* Premium Section Styling */
         section {
-            padding: 8rem 6%;
+            padding: 5rem 6%;
             max-width: 1500px;
             margin: 0 auto;
             position: relative;
@@ -460,7 +459,7 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 5rem;
+            margin-bottom: 4rem;
         }
 
         .section-tag {
@@ -547,7 +546,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2.5rem;
-            margin-top: 4rem;
+            margin-top: 3rem;
         }
 
         .service-premium-card {
@@ -629,7 +628,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 6rem;
             align-items: center;
-            margin-top: 4rem;
+            margin-top: 3rem;
         }
 
         .features-image-box {
@@ -708,7 +707,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 3rem;
-            margin-top: 4rem;
+            margin-top: 3rem;
         }
 
         .process-premium-card {
@@ -785,7 +784,7 @@
         /* Ultra Premium Partners Slider */
         .partners-premium-slider {
             overflow: hidden;
-            padding: 4rem 0;
+            padding: 3rem 0;
             position: relative;
             mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
         }
@@ -958,7 +957,7 @@
 
         /* Premium Footer */
         footer {
-            padding: 4rem 6%;
+            padding: 3rem 6%;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             text-align: center;
             background: rgba(15, 15, 35, 0.5);
@@ -1046,7 +1045,7 @@
             }
 
             section {
-                padding: 6rem 4%;
+                padding: 4rem 4%;
             }
 
             .section-title {
@@ -1082,6 +1081,10 @@
                 padding: 3rem;
                 border-radius: 30px;
             }
+
+            .logo-image {
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -1096,7 +1099,9 @@
 
     <!-- Premium Navbar -->
     <nav id="navbar">
-        <div class="logo">Skyzen Performance</div>
+        <div class="logo">
+            <img src="skyzenwhite.svg" alt="Skyzen Performance" class="logo-image">
+        </div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -1285,7 +1290,6 @@
                 <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/27_omoda.webp" alt="Omoda" /></div>
                 <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/31_hyundai.webp" alt="Hyundai" /></div>
                 <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/22_adidas.webp" alt="Adidas" /></div>
-                <!-- Duplicate for seamless infinite scroll -->
                 <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/21_amex.webp" alt="Amex" /></div>
                 <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/23_iqos.webp" alt="IQOS" /></div>
                 <div class="partner-logo-premium"><img src="https://axpay.co/wp-content/uploads/2025/06/24_lenovo.webp" alt="Lenovo" /></div>
@@ -1317,7 +1321,6 @@
                         <strong>Email</strong>
                         contact@skyzenperformance.com
                     </li>
-    
                     <li>
                         <strong>Work Hours</strong>
                         Mon - Sat: 9:00 - 18:00
@@ -1347,7 +1350,6 @@
     <div class="scroll-top-premium" id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"></div>
 
     <script>
-        // Enhanced navbar scroll effect
         const navbar = document.getElementById('navbar');
         const scrollTop = document.getElementById('scrollTop');
 
@@ -1361,7 +1363,6 @@
             }
         });
 
-        // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1375,14 +1376,12 @@
             });
         });
 
-        // Form submission
         function handleSubmit(e) {
             e.preventDefault();
             alert('✨ Thank you for your message! We will get back to you soon.');
             e.target.reset();
         }
 
-        // Premium intersection observer for scroll animations
         const observerOptions = {
             threshold: 0.15,
             rootMargin: '0px 0px -80px 0px'
@@ -1397,7 +1396,6 @@
             });
         }, observerOptions);
 
-        // Observe all premium cards
         document.querySelectorAll('.service-premium-card, .process-premium-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(40px)';
@@ -1405,7 +1403,6 @@
             observer.observe(el);
         });
 
-        // Parallax effect for orbs
         window.addEventListener('mousemove', (e) => {
             const orbs = document.querySelectorAll('.orb');
             const x = e.clientX / window.innerWidth;
