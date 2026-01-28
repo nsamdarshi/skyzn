@@ -1319,7 +1319,7 @@
                     </li>
                     <li>
                         <strong>Email</strong>
-                        contact@skyzenperformance.com
+                        contact@skyzenperformance.co
                     </li>
                     <li>
                         <strong>Work Hours</strong>
@@ -1327,13 +1327,13 @@
                     </li>
                 </ul>
             </div>
-            <form class="contact-form-premium" onsubmit="handleSubmit(event)">
+            <form action="https://formspree.io/f/mpqdbalg"method="POST" class="contact-form-premium" >
                 <div class="form-row-premium">
-                    <input type="text" placeholder="Your Name*" required />
-                    <input type="email" placeholder="Email Address*" required />
+                    <input type="text" name="name" placeholder="Your Name*" required />
+                    <input type="email" name="email" placeholder="Email Address*" required />
                 </div>
-                <input type="text" placeholder="Subject*" required />
-                <textarea placeholder="Tell us about your project..." required></textarea>
+                <input type="text" name="message" placeholder="Subject*" required />
+                <textarea name="text" placeholder="Tell us about your project..." required></textarea>
                 <button type="submit" class="btn-submit-premium">Send Message →</button>
             </form>
         </div>
